@@ -21,7 +21,6 @@ public class BaseTest {
         extent.attachReporter(reporter);
 
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless=new"); // mode sans interface graphique (obligatoire en CI)
         options.addArguments("--no-sandbox");
@@ -29,7 +28,7 @@ public class BaseTest {
         options.addArguments("--remote-allow-origins=*"); // évite certaines erreurs récentes
         options.addArguments("--user-data-dir=/tmp/profile-" + System.currentTimeMillis()); // profil unique
 
-        WebDriver driver = new ChromeDriver(options);
+        driver = new ChromeDriver(options);
         
         driver.manage().window().maximize();
     }
