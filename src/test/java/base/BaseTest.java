@@ -5,6 +5,7 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
@@ -21,6 +22,15 @@ public class BaseTest {
 
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless=new"); // mode sans interface graphique (obligatoire en CI)
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--remote-allow-origins=*"); // évite certaines erreurs récentes
+        options.addArguments("--user-data-dir=/tmp/profile-" + System.currentTimeMillis()); // profil unique
+
+        WebDriver driver = new ChromeDriver(options);
+        
         driver.manage().window().maximize();
     }
 
